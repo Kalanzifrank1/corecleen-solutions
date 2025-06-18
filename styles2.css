@@ -1,0 +1,563 @@
+/* define color and font variables */
+:root {
+    --primary-color: #007bff; 
+    --secondary-color: #175b7a; 
+    --font-family: 'Arial', sans-serif;
+}
+
+body {
+    font-family: var(--font-family);
+    margin: 0;
+    padding-top: 10px;
+}
+
+
+/* add styles for hero, features, testimonials, footer... */
+
+/* style for CTA button with hover effect */
+#ctaButton {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#ctaButton:hover {
+    background-color: darken(var(--primary-color), 10%);
+}
+
+/* Initially hidden scroll-to-top button */
+#scrollTopBtn {
+    display: none; /* Hidden by default */
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    /* Add more styling */
+}
+
+/* Initially hidden modal */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/* Style for the close button on the modal */
+.close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: black;
+    cursor: pointer;
+}
+
+/* In your styles.css */
+.feature-card {
+    padding-top: 10px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    background-color: #007bff;
+    padding-left: 10px;
+}
+
+.feature-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/*my classes*/
+.document-main{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.main{
+    padding-top: 10px;
+}
+
+/* Hero section*/
+.hero {
+  /* Ensure the background image covers the area and is centered */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 60vh; /* Give it a decent height, adjust as needed */
+  display: grid; /* Make it a grid container */
+  padding: 20px; /* Add some padding around the content */
+  gap: 20px; /* Space between grid items */
+  position: relative; /* Needed for potential overlay or absolute positioning */
+  align-items: center; /* Vertically center grid items */
+  justify-items: center; /* Horizontally center grid items */
+  text-align: center; /* Center text within its grid cell */
+  color: white; /* Default text color for hero content */
+}
+
+/* Optional: Add a subtle overlay for better text readability */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4); /* Dark overlay */
+  z-index: 1; /* Ensure overlay is behind content but above background */
+}
+
+.hero > * {
+  z-index: 2; /* Bring content above the overlay */
+}
+
+.hero .logo {
+  /* The logo will always be in its own grid area */
+  grid-area: logo; /* Define a grid area for the logo */
+}
+
+.hero .logo img {
+  border-radius: 50%; /* Make the logo round */
+  border: 3px solid white; /* Add a white border to the logo */
+  object-fit: cover;
+}
+
+.hero-text {
+  grid-area: heroText; /* Define a grid area for the hero text */
+}
+
+.hero-text h1 {
+  font-size: 3em; /* Larger heading for impact */
+  margin-bottom: 10px;
+}
+
+.hero-text p {
+  font-size: 1.5em; /* Subtitle size */
+}
+
+#ctaButton {
+  grid-area: ctaButton; /* Define a grid area for the button */
+  padding: 15px 30px;
+  background-color: #007bff; /* Button primary color */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  justify-self: center; /* Center the button within its grid cell */
+  align-self: center; /* Vertically center the button within its grid cell */
+}
+
+#ctaButton:hover {
+  background-color: #0056b3; /* Darker on hover */
+}
+
+
+/* Small screens (default: stacked layout) */
+.hero {
+  grid-template-areas:
+    "logo"
+    "heroText"
+    "ctaButton";
+  grid-template-columns: 1fr; /* Single column */
+}
+
+
+/* Medium screens (two columns) */
+@media (min-width: 768px) {
+  .hero {
+    grid-template-areas:
+      "logo       heroText"
+      ".          ctaButton"; /* Logo on left, text and button span below */
+    grid-template-columns: 0.5fr 1.5fr; /* Logo column narrower, text/button column wider */
+    justify-items: start; /* Align items to the start of their grid area */
+    text-align: left; /* Align text to the left */
+  }
+
+  .hero .logo {
+    align-self: start; /* Align logo to the top of its area */
+  }
+
+
+  #ctaButton {
+    /* The button is in its own grid area, spanning the second column */
+    justify-self: start; /* Align button to the start of its grid cell */
+  }
+}
+
+/* Large screens (three columns) */
+@media (min-width: 1024px) {
+  .hero {
+    grid-template-areas:
+      "logo       heroText  ." /* Logo, text, empty third column for balance */
+      ".          ctaButton ."; /* Button centered under text */
+    grid-template-columns: 0.5fr 1fr 0.5fr; /* Three columns: Logo, Text/Button, empty space */
+    /* Adjust these column sizes (e.g., 0.8fr 1.5fr 0.8fr) to fine-tune spacing */
+  }
+
+  
+  #ctaButton {
+    justify-self: center; /* Explicitly center the button in its column */
+  }
+}
+
+/*About section*/
+.about-section {
+  display: grid;
+  gap: 30px; /* Space between the columns */
+  padding: 40px 20px; /* Padding around the section */
+  align-items: center; /* Vertically align items in the grid */
+  max-width: 1200px; /* Limit the max width of the section */
+  margin: 0 auto; /* Center the section on the page */
+}
+
+/* Small screens (default: content stacks, one column) */
+.about-section {
+  grid-template-columns: 1fr; /* Single column */
+}
+
+.about-section div:last-child{
+  order: 2; /* Puts the text below the image on small screens */
+}
+
+.about-section div:first-child  {
+  order: 1; /* Puts the image above the text on small screens */
+}
+
+.about-section img {
+  width: 100%; /* Image takes full width of its container */
+  height: auto; /* Maintain aspect ratio */
+  max-height: 300px; /* Limit height on small screens for better appearance */
+  object-fit: cover; /* Ensures image covers the area, cropping if necessary */
+  border-radius: 8px; /* Slightly rounded corners for a modern look */
+}
+
+/* Medium and Large screens (two columns) */
+@media (min-width: 768px) {
+  .about-section {
+    grid-template-columns: 1.2fr 1.8fr; /* Image takes more space (1.8fr) than text (1.2fr) */
+    /* You can experiment with these values, e.g., 1fr 1.5fr or 0.8fr 1.2fr */
+  }
+
+  .about-section div:first-child {
+    order: 1; /* Text on the left */
+  }
+
+  .about-section div:last-child {
+    order: 2; /* Image on the right */
+  }
+
+  .about-section img {
+    height: 500px; /* Set a specific height for the image on larger screens */
+    /* Using a fixed height here, combined with object-fit: cover, will make
+       the image a prominent visual element, filling its grid area. */
+  }
+}
+
+/* General styling for text for better readability */
+.about-section h2 {
+  font-size: 2.5em; /* Adjust font size as needed */
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+.about-section p {
+  font-size: 1.1em;
+  line-height: 1.7;
+  color: #555;
+}
+
+
+
+/*features section*/
+.features {
+  display: grid;
+  gap: 20px; /* Adjust the gap between items as needed */
+  padding: 20px; /* Add some padding around the section */
+}
+
+/* Small screens (default: 1 item per row) */
+.features {
+  grid-template-columns: 1fr; /* One column, taking up full width */
+}
+
+/* Medium screens (e.g., 768px and up: 2 items per row) */
+@media (min-width: 768px) {
+  .features {
+    grid-template-columns: repeat(2, 1fr); /* Two equal columns */
+  }
+}
+
+/* Larger screens (e.g., 1024px and up: 3 items per row) */
+@media (min-width: 1024px) {
+  .features {
+    grid-template-columns: repeat(3, 1fr); /* Three equal columns */
+  }
+}
+
+/* Optional: Basic styling for feature cards */
+.feature-card {
+  border: 1px solid #ddd;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.feature-card Icon {
+  display: block; /* Ensures the icon container takes its own line */
+  margin-bottom: 15px;
+}
+
+.feature-card img {
+  max-width: 100%; /* Ensures images are responsive */
+  height: auto;
+}
+
+.feature-card h3 {
+  margin-top: 0;
+  color: white;
+}
+
+.feature-card p,
+.feature-card h4 {
+  color: white;
+  line-height: 1.6;
+}
+
+/* Testimonials section */
+.testimonials-section {
+    padding: 60px 20px; /* Ample padding top/bottom */
+    background-color: #f9f9f9; /* Light background for the section */
+    text-align: center; /* Center the heading */
+}
+
+.testimonials-section h2 {
+    font-size: 2.5em;
+    margin-bottom: 50px; /* Space below the heading */
+    color: #333;
+}
+
+.testimonials-container {
+    display: grid;
+    gap: 30px; /* Space between testimonial cards */
+    max-width: 1200px; /* Max width for the container */
+    margin: 0 auto; /* Center the container */
+}
+
+/* Small screens (default: 1 column) */
+.testimonials-container {
+    grid-template-columns: 1fr; /* Single column */
+}
+
+/* Large screens (3 columns in a row) */
+@media (min-width: 1024px) {
+    .testimonials-container {
+        grid-template-columns: repeat(3, 1fr); /* Three equal columns */
+    }
+}
+
+/* Testimonial Card Styling */
+.testimonial-card {
+    background-color: #fff; /* White background for cards */
+    border-radius: 12px; /* Nicely rounded corners */
+    padding: 30px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08); /* Soft shadow */
+    display: flex; /* Use flexbox for internal layout */
+    flex-direction: column; /* Stack image and content vertically */
+    align-items: center; /* Center items horizontally within the card */
+    position: relative; /* For potential positioning of elements */
+    overflow: hidden; /* Ensure nothing spills out */
+}
+
+/* Testimonial Image (Small & Rounded) */
+.testimonial-img {
+    width: 80px; /* Small size for the image */
+    height: 80px; /* Ensure it's square for perfect circle */
+    border-radius: 50%; /* Makes the image perfectly round */
+    object-fit: cover; /* Ensures image fills the circle without distortion */
+    border: 3px solid #007bff; /* Small border in primary color */
+    margin-bottom: 25px; /* Space between image and content */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow on image */
+}
+
+/* Testimonial Content */
+.testimonial-content {
+    flex-grow: 1; /* Allows content to take up remaining space */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center content vertically if space allows */
+    align-items: center; /* Center text within content div */
+    text-align: center; /* Ensure text is centered */
+}
+
+.testimonial-quote {
+    font-size: 1.1em;
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 20px;
+    font-style: italic; /* Italicize the quote */
+}
+
+.testimonial-name {
+    font-size: 1.15em;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.testimonial-title {
+    font-size: 0.9em;
+    color: #777;
+    margin-top: 0;
+}
+
+
+/* Footer section*/
+.footer-section {
+    background-color: #222; /* Dark background for a sleek look */
+    color: #fff; /* White text */
+    padding: 40px 20px 20px; /* Top, horizontal, bottom padding */
+    display: grid; /* Make it a grid container */
+    gap: 30px; /* Space between grid items/columns */
+    text-align: center; /* Center content by default for mobile */
+    grid-template-columns: 1fr; /* Default to single column for small screens */
+    max-width: 100%; /* Ensure it spans full width */
+}
+
+/* Styling for each footer column */
+.footer-column {
+    /* Optional: add some padding to individual columns if needed */
+}
+
+.footer-section h3 {
+    font-size: 1.4em;
+    margin-bottom: 20px;
+    color: #007bff; /* Primary color for headings */
+}
+
+.footer-section p {
+    font-size: 0.95em;
+    margin-bottom: 8px; /* Space between contact lines */
+    line-height: 1.5;
+}
+
+.footer-section p a {
+    color: #fff; /* White link text */
+    text-decoration: none; /* No underline by default */
+    transition: color 0.3s ease;
+}
+
+.footer-section p a:hover {
+    color: #007bff; /* Change color on hover */
+}
+
+/* Social Links Styling */
+.social-links-container {
+    display: flex; /* Use flexbox to arrange social links */
+    flex-direction: column; /* Stack them vertically on small screens */
+    align-items: center; /* Center them horizontally */
+    gap: 10px; /* Space between social links */
+}
+
+.social-links-container a {
+    color: #fff; /* White link color */
+    text-decoration: none;
+    font-size: 1.1em;
+    padding: 8px 15px; /* Add some padding to make them clickable */
+    border: 1px solid #007bff; /* Border for button-like appearance */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    display: flex; /* Allow icon and text to align */
+    align-items: center; /* Vertically align icon and text */
+    gap: 8px; /* Space between icon and text */
+}
+
+.social-links-container a:hover {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff; /* Keep border color consistent */
+}
+
+/* If you're using Font Awesome, include this: */
+.social-links-container a i {
+    font-size: 1.2em; /* Size of the icon */
+}
+
+
+/* Footer Bottom / Copyright */
+.footer-bottom {
+    grid-column: 1 / -1; /* Span across all columns */
+    padding-top: 20px;
+    margin-top: 30px; /* Space above copyright */
+    border-top: 1px solid #333; /* Separator line */
+    font-size: 0.85em;
+    color: #aaa;
+}
+
+/* Media Queries for Responsiveness */
+
+/* Medium screens (Optional: could keep single column or go to 2 columns) */
+@media (min-width: 600px) {
+    .footer-section {
+        grid-template-columns: repeat(2, 1fr); /* Two columns */
+        text-align: left; /* Align text to left in columns */
+    }
+
+    .social-links-container {
+        align-items: flex-start; /* Align social links to the left */
+    }
+
+    /* Position the last column (social links) if it wraps */
+    .footer-column:last-of-type {
+        grid-column: span 2; /* Span two columns if only 3 items and it wraps */
+        /* This is an example, you might need to adjust based on content */
+    }
+}
+
+
+/* Large screens (3 columns) */
+@media (min-width: 992px) { /* Adjust breakpoint as needed */
+    .footer-section {
+        grid-template-columns: repeat(3, 1fr); /* Three equal columns */
+        text-align: left; /* Ensure text is left-aligned */
+    }
+
+    /* Reset the last column spanning if it was set for medium screens */
+    .footer-column:last-of-type {
+        grid-column: auto;
+    }
+
+    .social-links-container {
+        flex-direction: column; /* Keep vertical stacking of social links */
+        align-items: flex-start; /* Align social links to the left */
+    }
+}
+
+/* Optional: If you want social links to be horizontal on large screens */
+@media (min-width: 1200px) {
+    .social-links-container {
+        flex-direction: row; /* Horizontal on very large screens */
+        justify-content: flex-start; /* Align to left */
+        flex-wrap: wrap; /* Allow wrapping if many links */
+    }
+}

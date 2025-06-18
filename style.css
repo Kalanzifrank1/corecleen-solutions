@@ -1,0 +1,549 @@
+/* define color and font variables */
+:root {
+    --primary-color: #007bff; 
+    --secondary-color: #175b7a; 
+    --font-family: 'Arial', sans-serif;
+}
+
+body {
+    font-family: var(--font-family);
+    margin: 0;
+    padding-top: 10px;
+}
+
+
+/* add styles for hero, features, testimonials, footer... */
+
+/* style for CTA button with hover effect */
+#ctaButton {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#ctaButton:hover {
+    background-color: darken(var(--primary-color), 10%);
+}
+
+/* Initially hidden scroll-to-top button */
+#scrollTopBtn {
+    display: none; 
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+}
+
+/* Hide modal at the start */
+.modal {
+    display: none; 
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+
+.close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: black;
+    cursor: pointer;
+}
+
+/* styles for feature cards */
+.feature-card {
+    padding-top: 10px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    background-color: #007bff;
+    padding-left: 10px;
+}
+
+.feature-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.document-main{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.main{
+    padding-top: 10px;
+}
+
+/* Hero section*/
+.hero {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 60vh; 
+  display: grid; 
+  padding: 20px; 
+  gap: 20px; 
+  position: relative; 
+  align-items: center; 
+  justify-items: center; 
+  text-align: center; 
+  color: white; 
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4); 
+  z-index: 1; 
+}
+
+.hero > * {
+  z-index: 2; 
+}
+
+.hero .logo {
+  
+  grid-area: logo; 
+}
+
+.hero .logo img {
+  border-radius: 50%; 
+  border: 3px solid white; 
+  object-fit: cover;
+}
+
+.hero-text {
+  grid-area: heroText; 
+}
+
+.hero-text h1 {
+  font-size: 3em; 
+  margin-bottom: 10px;
+}
+
+.hero-text p {
+  font-size: 1.5em; 
+}
+
+#ctaButton {
+  grid-area: ctaButton; 
+  padding: 15px 30px;
+  background-color: #007bff; 
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  justify-self: center; 
+  align-self: center; 
+}
+
+#ctaButton:hover {
+  background-color: #0056b3; 
+}
+
+
+/* Small screens with stacked layout */
+.hero {
+  grid-template-areas:
+    "logo"
+    "heroText"
+    "ctaButton";
+  grid-template-columns: 1fr; 
+}
+
+
+/* Medium screens two columns */
+@media (min-width: 768px) {
+  .hero {
+    grid-template-areas:
+      "logo       heroText"
+      ".          ctaButton"; 
+    grid-template-columns: 0.5fr 1.5fr; 
+    justify-items: start; 
+    text-align: left; 
+  }
+
+  /* Align logo to the top of its area */
+  .hero .logo {
+    align-self: start; 
+  }
+
+  /* Align button to the start of its grid cell */
+  #ctaButton {
+    justify-self: start; 
+  }
+}
+
+/* Large screens three columns */
+@media (min-width: 1024px) {
+  .hero {
+    grid-template-areas:
+      "logo       heroText  ." 
+      ".          ctaButton .";
+    grid-template-columns: 0.5fr 1fr 0.5fr; 
+  }
+
+  
+  /* center the button in its column */
+  #ctaButton {
+    justify-self: center; 
+  }
+}
+
+/*About section*/
+.about-section {
+  display: grid;
+  gap: 30px; 
+  padding: 40px 20px; 
+  align-items: center; 
+  max-width: 1200px; 
+  margin: 0 auto; 
+}
+
+/* Small screens default-> content stacks, one column */
+.about-section {
+  grid-template-columns: 1fr; /* Single column */
+}
+
+.about-section div:first-child  {
+  order: 1; 
+}
+
+.about-section div:last-child{
+  order: 2; 
+}
+
+
+.about-section img {
+  width: 100%; 
+  height: auto; 
+  max-height: 300px; 
+  object-fit: cover; 
+  border-radius: 8px; 
+}
+
+/* Medium and Large screens -> two columns */
+@media (min-width: 768px) {
+  .about-section {
+    grid-template-columns: 1.2fr 1.8fr; 
+  }
+
+  .about-section div:first-child {
+    order: 1; 
+  }
+
+  .about-section div:last-child {
+    order: 2; 
+  }
+
+  .about-section img {
+    height: 500px; 
+  }
+}
+
+.about-section h2 {
+  font-size: 2.5em; 
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+.about-section p {
+  font-size: 1.1em;
+  line-height: 1.7;
+  color: #555;
+}
+
+
+
+/*features section*/
+.features {
+  display: grid;
+  gap: 20px; 
+  padding: 20px; 
+}
+
+/* Small screens default -> 1 item per row */
+.features {
+  grid-template-columns: 1fr; 
+}
+
+/* Medium screens (e.g., 768px and up: 2 items per row) */
+@media (min-width: 768px) {
+  .features {
+    grid-template-columns: repeat(2, 1fr); /* 2 equal columns */
+  }
+}
+
+/* Larger screens (e.g., 1024px and up: 3 items per row) */
+@media (min-width: 1024px) {
+  .features {
+    grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
+  }
+}
+
+/* Optional: Basic styling for feature cards */
+.feature-card {
+  border: 1px solid #ddd;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.feature-card Icon {
+  display: block;
+  margin-bottom: 15px;
+}
+
+/* images are responsiveness */
+.feature-card img {
+  max-width: 100%; 
+  height: auto;
+}
+
+.feature-card h3 {
+  margin-top: 0;
+  color: white;
+}
+
+.feature-card p,
+.feature-card h4 {
+  color: white;
+  line-height: 1.6;
+}
+
+/* Testimonials section */
+.testimonials-section {
+    padding: 60px 20px; 
+    background-color: #f9f9f9; 
+    text-align: center; 
+}
+
+.testimonials-section h2 {
+    font-size: 2.5em;
+    margin-bottom: 50px; 
+    color: #333;
+}
+
+.testimonials-container {
+    display: grid;
+    gap: 30px; 
+    max-width: 1200px; 
+    margin: 0 auto; 
+}
+
+/* Small screens (default: 1 column) */
+.testimonials-container {
+    grid-template-columns: 1fr; 
+}
+
+/* Large screens, 3 columns in a row */
+@media (min-width: 1024px) {
+    .testimonials-container {
+        grid-template-columns: repeat(3, 1fr); 
+    }
+}
+
+/* Testimonial Card Styling */
+.testimonial-card {
+    background-color: #fff; 
+    border-radius: 12px; 
+    padding: 30px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08); 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    position: relative; 
+    overflow: hidden; 
+}
+
+/* Testimonial Image, Small and Rounded */
+.testimonial-img {
+    width: 80px; 
+    height: 80px; 
+    border-radius: 50%; 
+    object-fit: cover; 
+    border: 3px solid #007bff; 
+    margin-bottom: 25px; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+}
+
+/* Testimonial Content */
+.testimonial-content {
+    flex-grow: 1; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+    text-align: center; 
+}
+
+.testimonial-quote {
+    font-size: 1.1em;
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 20px;
+    font-style: italic; 
+}
+
+.testimonial-name {
+    font-size: 1.15em;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.testimonial-title {
+    font-size: 0.9em;
+    color: #777;
+    margin-top: 0;
+}
+
+
+/* Footer section*/
+.footer-section {
+    background-color: #222; 
+    color: #fff; 
+    padding: 40px 20px 20px; 
+    display: grid; 
+    gap: 30px; 
+    text-align: center; 
+    grid-template-columns: 1fr; 
+    max-width: 100%; 
+}
+
+
+.footer-section h3 {
+    font-size: 1.4em;
+    margin-bottom: 20px;
+    color: #007bff; 
+}
+
+.footer-section p {
+    font-size: 0.95em;
+    margin-bottom: 8px; 
+    line-height: 1.5;
+}
+
+.footer-section p a {
+    color: #fff; 
+    text-decoration: none; 
+    transition: color 0.3s ease;
+}
+
+.footer-section p a:hover {
+    color: #007bff; 
+}
+
+/* Social Links Styling */
+.social-links-container {
+    display: flex; 
+    flex-direction: column;
+    align-items: center; 
+    gap: 10px; 
+}
+
+.social-links-container a {
+    color: #fff; 
+    text-decoration: none;
+    font-size: 1.1em;
+    padding: 8px 15px; 
+    border: 1px solid #007bff; 
+    border-radius: 5px; 
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    display: flex; 
+    align-items: center; 
+    gap: 8px; 
+}
+
+.social-links-container a:hover {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff; 
+}
+
+.social-links-container a i {
+    font-size: 1.2em; 
+}
+
+
+/* Copyright */
+.footer-bottom {
+    grid-column: 1 / -1; 
+    padding-top: 20px;
+    margin-top: 30px; 
+    border-top: 1px solid #333; 
+    font-size: 0.85em;
+    color: #aaa;
+}
+
+/* Medium screens, could keep single column or go to 2 columns */
+@media (min-width: 600px) {
+    .footer-section {
+        grid-template-columns: repeat(2, 1fr); 
+        text-align: left; 
+    }
+
+    /* Align social links to the left */
+    .social-links-container {
+        align-items: flex-start; 
+    }
+
+    /* Position the last column social links if it wraps */
+    .footer-column:last-of-type {
+        grid-column: span 2; 
+    }
+}
+
+
+/* Large screens -> 3 columns */
+@media (min-width: 992px) {
+    .footer-section {
+        grid-template-columns: repeat(3, 1fr); 
+        text-align: left; 
+    }
+
+    /* Reset the last column spanning if it was set for medium screens */
+    .footer-column:last-of-type {
+        grid-column: auto;
+    }
+
+    .social-links-container {
+        flex-direction: column; 
+        align-items: flex-start; 
+    }
+}
+
+@media (min-width: 1200px) {
+    .social-links-container {
+        flex-direction: row; 
+        justify-content: flex-start; 
+        flex-wrap: wrap; 
+    }
+}
